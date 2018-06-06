@@ -1,0 +1,7 @@
+h1 Sign In
+
+
+= bootstrap_form_with url: sessions_path, local: true do |form|
+  = form.text_field :name
+  = form.password_field :password
+  = form.submit "Save", class: 'btn-primary'

@@ -1,2 +1,5 @@
 <h3>Welcome</h3>
 <p><%= link_to 'Users:', users_path %> <%= User.count %> registered</p>
+
+<p> Accounts: <%= EthIpc.new.accounts %>
+<p> Coinbase: <%= EthIpc.new.counbase %>
