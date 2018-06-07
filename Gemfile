@@ -32,6 +32,7 @@ gem 'ethereum', git: 'git@github.com:DigixGlobal/ethereum-ruby.git'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 
 group :development do
+  gem "awesome_print"
   gem 'better_errors'
   gem 'rails_layout'
   gem 'spring-commands-rspec'

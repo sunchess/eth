@@ -3,5 +3,26 @@ h3= @user.name
 p
  | Ethereum address: #{@user.eth_address}
 p
-  | Balance:
-  = @user.balance
+  | Balance: #{@user.balance[:latest]}
+  - if @user.balance[:latest] != @user.balance[:pending]
+    br
+    |Pending: #{@user.balance[:latest] - @user.balance[:pending]}
+
+
+
+.table-responsive-sm
+  table class="table"
+    th TxHash
+    th Participants
+    th Value
+    tbody
+      - @user.transactions.each do |transaction|
+        tr
+          td= transaction.eth_hash
+          td
+            | <b>From</b>: #{transaction.data["from"]}
+            br
+            | <b>To:</b> &nbsp;&nbsp;&nbsp;&nbsp;  #{ transaction.data["to"] }
+          td
+            span(style="color: white; background: #{transaction.inner? ? 'green' : 'red'}")
+              = transaction.value

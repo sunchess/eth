@@ -43,3 +43,13 @@ section {
   @extend .row;
   margin-top: 20px;
 }
+.table-responsive-sm{
+  table{
+    td{
+      font-size: 12px;
+    }
+    th{
+      font-size: 12px;
+    }
+  }
+}

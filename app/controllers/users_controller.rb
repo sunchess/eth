@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :owner, only: :show
+  before_action :check_transactions, only: :show
 
   def index
     @users = User.all
@@ -19,9 +20,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-
-  end
+  def show; end
 
   private
   def user_params
@@ -32,4 +31,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 		redirect_to root_path, notice: 'Access denied' unless @user == current_user
 	end
+
+  def check_transactions
+    @user.sync_transactions
+  end
 end
