@@ -14,6 +14,29 @@ class EthIpc
     result
   end
 
+  def unlock_account(address, password)
+    client.personal_unlock_account(address, password)["result"] rescue nil
+  end
+
+  def send_transaction(from, to, value)
+    value  = to_eth(value)
+    gas    = to_hex(21000)
+    params = {
+      from: from,
+      to: to,
+      gas: gas,
+      gasPrice: "0x9184e72a000", # 10000000000000
+      value:  value,
+      data: "0x"
+    }
+    result = client.eth_send_transaction(params)
+    return result["result"] if result["result"]
+
+    Rails.logger.debug("error: #{result["error"]}")
+
+    false
+  end
+
   def get_transactions(address, size = 500)
     end_block = eth_block_number
     start_block = end_block - size;
@@ -44,6 +67,14 @@ class EthIpc
 
   def counbase
     client.eth_coinbase
+  end
+
+  def to_eth(value)
+    "0x" + formater.to_twos_complement(formater.to_wei(value))
+  end
+
+  def to_hex(value)
+    "0x" + formater.to_twos_complement(value)
   end
 
   private

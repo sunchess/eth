@@ -1,12 +1,12 @@
 h3= @user.name
 
 p
- | Ethereum address: #{@user.eth_address}
+  | Ethereum address: #{link_to @user.eth_address, "https://rinkeby.etherscan.io/address/#{@user.eth_address}", target: "_blank"}
 p
-  | Balance: #{@user.balance[:latest]}
+  | Balance: #{@user.balance[:latest]} [#{link_to "Send", new_transaction_path}]
   - if @user.balance[:latest] != @user.balance[:pending]
     br
-    |Pending: #{@user.balance[:latest] - @user.balance[:pending]}
+    |Pending: #{@user.balance[:latest].to_f - @user.balance[:pending].to_f}
 
 
 
@@ -16,9 +16,10 @@ p
     th Participants
     th Value
     tbody
-      - @user.transactions.each do |transaction|
+      - @user.transactions.order(id: :desc).each do |transaction|
         tr
-          td= transaction.eth_hash
+          td
+            =link_to transaction.eth_hash, "https://rinkeby.etherscan.io/tx/#{transaction.eth_hash}", target: "_blank"
           td
             | <b>From</b>: #{transaction.data["from"]}
             br

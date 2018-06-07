@@ -1,0 +1,9 @@
+h1 Send Ethereum
+
+- if @transaction.errors.any?
+  = @transaction.errors.full_messages.join(" ")
+= bootstrap_form_with model: @transaction, local: true do |form|
+  |From: #{current_user.eth_address}
+  = form.text_field :to
+  = form.text_field :eth_value
+  = form.submit "Send", class: 'btn-primary'

@@ -20,6 +20,10 @@ class User < ApplicationRecord
 		{latest: eth_client.balance_latest(self.eth_address), pending: eth_client.balance_pending(self.eth_address)}
 	end
 
+  def raw_balance
+    eth_client.balance_latest(self.eth_address)
+  end
+
   def eth_client
     @eth_client ||= EthIpc.new
   end
@@ -32,7 +36,7 @@ class User < ApplicationRecord
     diff = eth_haches - haches
 
     diff.each do |eth_hash|
-      transaction = eth_transactions.find{|i| i["hash"] = eth_hash}
+      transaction = eth_transactions.find{|i| i["hash"] == eth_hash}
       self.transactions.create({eth_hash: eth_hash, data: transaction})
     end
   end
