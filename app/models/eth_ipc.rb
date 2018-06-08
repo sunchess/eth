@@ -2,7 +2,7 @@ class EthIpc
   attr_reader :client, :formater
 
   def initialize
-    @client = Ethereum::IpcClient.new(Rails.application.secrets.eth_ipc_path, true)
+    @client = Ethereum::IpcClient.new(Rails.application.secrets.eth_ipc_path)
     @formater = Ethereum::Formatter.new
   end
 
