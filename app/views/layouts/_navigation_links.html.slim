@@ -1,10 +1,10 @@
 - if current_user
-	li
-		= link_to current_user.name, user_path(current_user.id)
-	li
-		= link_to "Logout", session_path(current_user.id), method: :delete
+  li.nav-item
+    = link_to "Hello #{current_user.name}", user_path(current_user.id), class: "nav-link"
+  li.nav-item
+		= link_to "Sign out", session_path(current_user.id), method: :delete, class: "nav-link"
 - else
-	li
-		= link_to "Registration", new_user_path
-	li
-		= link_to "Sign in", new_session_path
+  li.nav-item
+		= link_to "Registration", new_user_path, class: "nav-link"
+  li.nav-item
+		= link_to "Sign in", new_session_path, class: "nav-link"

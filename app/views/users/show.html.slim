@@ -29,7 +29,7 @@ p
             | <b>To:</b> &nbsp;&nbsp;&nbsp;&nbsp;  #{ transaction.data["to"] }
           td
             span(style="color: white; background: #{transaction.inner?  ? 'green' : 'red'}")
-              = transaction.value
+              = "#{transaction.inner? ? "+" : "-"}#{transaction.value}"
 
           td
             = transaction.confirmed_blocks
