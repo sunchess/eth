@@ -50,9 +50,13 @@ Clone the app `git clone git@github.com:sunchess/eth.git`
 
 Set your DB credentials in `config/database.yml` file and path to geth.ipc socket in `config/secrets.yml`, section `eth_ipc_path`. In my case this is a "/Users/dmitrievaleksandr/.rinkeby/geth.ipc" string.
 
-Run `bundle install`, `rake db:create db:migrate`, `yarn install` and got to http://localhost:3000
+Run `bundle install`, `rake db:create db:migrate`, `yarn install` , `rails server` and got to http://localhost:3000
 
 
+
+### Step 4: Get test Ethereum
+
+Go to https://www.rinkeby.io/#faucet and make post with your Ethereum address via Tweeter or what you prefer :)
 
 ## Development
 
