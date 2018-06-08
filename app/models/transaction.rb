@@ -1,7 +1,7 @@
 class Transaction < ApplicationRecord
   attr_accessor :to, :eth_value
 
-  CONFIRM_AGE = 30
+  CONFIRM_AGE = 10
   belongs_to :user
 
   delegate :eth_client, to: :user
@@ -33,7 +33,7 @@ class Transaction < ApplicationRecord
   end
 
   def create_with_eth
-    return self.errors.add(:eth_value, "you don't have enough funds for this operation") if self.eth_value.to_f > user.raw_balance
+    return false if (self.eth_value.to_f > user.raw_balance) and self.errors.add(:eth_value, "you don't have enough funds for this operation")
 
     if eth_client.unlock_account(user.eth_address, user.eth_password)
       if txid = eth_client.send_transaction(user.eth_address, self.to, self.eth_value.to_f)
@@ -50,6 +50,8 @@ class Transaction < ApplicationRecord
     else
       self.errors.add(:to, "can't unlock the account for transaction")
     end
+
+    false
   end
 
   def deployed?(txid)
