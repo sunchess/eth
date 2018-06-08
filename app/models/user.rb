@@ -21,19 +21,27 @@ class User < ApplicationRecord
 	end
 
   def raw_balance
-    eth_client.balance_latest(self.eth_address)
+    eth_client.balance_latest(self.eth_address).to_f - unconfirmed_balance
   end
 
   def eth_client
     @eth_client ||= EthIpc.new
   end
 
+  def unconfirmed_transactions
+    transactions.order(id: :desc).limit(100).where('data @> ?', {to: self.eth_address}.to_json).select{|t| t.confirmed_blocks < Transaction::CONFIRM_AGE}
+  end
+
+  def unconfirmed_balance
+    unconfirmed_transactions.sum{|t| t.value}  #rescue 0
+  end
+
   def sync_transactions
     eth_transactions = eth_client.get_transactions(self.eth_address)
-    eth_haches = eth_transactions.pluck("hash")
-    haches     = self.transactions.pluck(:eth_hash)
+    eth_hashes = eth_transactions.pluck("hash")
+    hashes     = self.transactions.pluck(:eth_hash)
 
-    diff = eth_haches - haches
+    diff = eth_hashes - hashes
 
     diff.each do |eth_hash|
       transaction = eth_transactions.find{|i| i["hash"] == eth_hash}

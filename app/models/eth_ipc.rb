@@ -24,8 +24,8 @@ class EthIpc
     params = {
       from: from,
       to: to,
-      gas: gas,
-      gasPrice: "0x9184e72a000", # 10000000000000
+      #gas: gas,
+      #gasPrice: "0x9184e72a000", # 10000000000000
       value:  value,
       data: "0x"
     }
@@ -35,6 +35,10 @@ class EthIpc
     Rails.logger.debug("error: #{result["error"]}")
 
     false
+  end
+
+  def get_transaction(txid)
+    client.eth_get_transaction_by_hash(txid)["result"]
   end
 
   def get_transactions(address, size = 500)
@@ -77,10 +81,11 @@ class EthIpc
     "0x" + formater.to_twos_complement(value)
   end
 
-  private
   def eth_block_number
     formater.to_int(client.eth_block_number["result"])
   end
+
+  private
 
   def select_transactions_by(address, transactions)
     return [] unless transactions.any?

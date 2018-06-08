@@ -7,6 +7,8 @@ p
   - if @user.balance[:latest] != @user.balance[:pending]
     br
     |Pending: #{@user.balance[:latest].to_f - @user.balance[:pending].to_f}
+  br
+  | Unconfirmed: #{@user.unconfirmed_balance}
 
 
 
@@ -15,6 +17,7 @@ p
     th TxHash
     th Participants
     th Value
+    th Confirmed
     tbody
       - @user.transactions.order(id: :desc).each do |transaction|
         tr
@@ -25,5 +28,11 @@ p
             br
             | <b>To:</b> &nbsp;&nbsp;&nbsp;&nbsp;  #{ transaction.data["to"] }
           td
-            span(style="color: white; background: #{transaction.inner? ? 'green' : 'red'}")
+            span(style="color: white; background: #{transaction.inner?  ? 'green' : 'red'}")
               = transaction.value
+
+          td
+            = transaction.confirmed_blocks
+            - if transaction.inner? and !transaction.confirmed?
+              span(style="color: red")
+                | &nbsp;!
