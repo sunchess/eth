@@ -56,7 +56,7 @@ Run `bundle install`, `rake db:create db:migrate`, `yarn install` , `rails serve
 
 ### Step 4: Get test Ethereum
 
-Go to https://www.rinkeby.io/#faucet and make post with your Ethereum address via Tweeter or what you prefer :)
+Go to https://www.rinkeby.io/#faucet and make post with your Ethereum address via Twitter or what you prefer :)
 
 ## Development
 
