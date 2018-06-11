@@ -24,7 +24,7 @@ Unknown whether Parity works as well. It will probably take some finagling to wo
 
 ### Step 2: Install Rinkeby
 
-Use `Archive node` synchronization section by this link https://www.rinkeby.io/#geth. The synchronization could take about 1 hour on 100mb/s, i5 CPU and 8GB RAM. In this time Ethereum full node takes about 11GB disc space. 
+Use `Archive node` synchronization section by this link https://www.rinkeby.io/#geth. The synchronization could take about 1 hour on 100mb/s, i5 CPU and 8GB RAM. At this moment Ethereum full node takes about 11GB disc space. 
 
 For running console use ` geth --datadir=$HOME/.rinkeby attach ipc:$HOME/.rinkeby/geth.ipc console`. Check sync: `> eth.syncing`  
 
