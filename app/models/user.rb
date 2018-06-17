@@ -16,9 +16,9 @@ class User < ApplicationRecord
     false
   end
 
-	def balance
-		{latest: eth_client.balance_latest(self.eth_address), pending: eth_client.balance_pending(self.eth_address)}
-	end
+  def balance
+    {latest: eth_client.balance_latest(self.eth_address), pending: eth_client.balance_pending(self.eth_address)}
+  end
 
   def raw_balance
     eth_client.balance_latest(self.eth_address).to_f - unconfirmed_balance

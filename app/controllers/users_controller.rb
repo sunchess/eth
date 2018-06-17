@@ -27,10 +27,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :password)
   end
 
-	def owner
+  def owner
     @user = User.find(params[:id])
-		redirect_to root_path, notice: 'Access denied' unless @user == current_user
-	end
+    redirect_to root_path, notice: 'Access denied' unless @user == current_user
+  end
 
   def check_transactions
     @user.sync_transactions

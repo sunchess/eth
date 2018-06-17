@@ -55,18 +55,18 @@ class EthIpc
     select_transactions_by(address, transactions)
   end
 
-	def balance_latest(account)
+  def balance_latest(account)
     result = formater.to_int(client.eth_get_balance(account, "latest")["result"])
     formater.from_wei(result)
-	end
+  end
 
-	def balance_pending(account)
+  def balance_pending(account)
     result = formater.to_int(client.eth_get_balance(account, "pending")["result"])
     formater.from_wei(result)
-	end
+  end
 
   def accounts
-		client.eth_accounts
+    client.eth_accounts
   end
 
   def counbase
@@ -93,6 +93,6 @@ class EthIpc
   end
 
 
-	#https://ethereum.stackexchange.com/questions/2881/how-to-get-the-transaction-confirmations-using-the-json-rpc
+  #https://ethereum.stackexchange.com/questions/2881/how-to-get-the-transaction-confirmations-using-the-json-rpc
 
 end
